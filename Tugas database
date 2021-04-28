@@ -1,0 +1,97 @@
+import 'package:flutter/material.dart';
+void main() => runApp(App());
+
+class App extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter penyimpanan data',
+      home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text('Jerry Pratama Tarigan - 6sia1'),
+        ),
+        body: Mahasiswa(),
+        backgroundColor: Colors.blueGrey,
+      ),
+    );
+  }
+}
+
+class DataMahasiswa{
+  
+  String nirm;
+  String nama;
+  String jurusan;
+  String kelas;
+  
+  
+  DataMahasiswa({ this.nirm, this.nama, this.jurusan, this.kelas});
+  
+}
+
+// class Mahasiswa
+class Mahasiswa extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<Mahasiswa> {
+  //deklarasi variabel
+  final txtnirmmahasiswa = TextEditingController();
+  final txtnamamahasiswa = TextEditingController();
+  final txtjurusanmahsiswa = TextEditingController();
+  final txtkelasmahasiswa = TextEditingController();
+
+  List<Widget> data = [];
+ 
+  onTambah() {
+    setState(() {
+      data.add(ListTile(
+        leading: Text(txtnirmmahasiswa.text),
+        title: Text(txtnamamahasiswa.text),
+        subtitle: Text(txtjurusanmahsiswa.text),
+        trailing: Text(txtkelasmahasiswa.text),
+      ));
+      txtnirmmahasiswa.clear();
+      txtnamamahasiswa.clear();
+      txtjurusanmahsiswa.clear();
+      txtkelasmahasiswa.clear();
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        new Container(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+           
+              TextField(
+                controller: txtnirmmahasiswa,
+                decoration: InputDecoration(hintText: 'Nirm Mahasiswa'),
+              ),
+              TextField(
+                controller: txtnamamahasiswa,
+                decoration: InputDecoration(hintText: 'Nama Mahasiswa'),
+              ),
+              TextField(
+                controller: txtjurusanmahsiswa,
+                decoration: InputDecoration(hintText: 'Jurusan Mahasiswa'),
+              ),
+               TextField(
+                controller: txtkelasmahasiswa,
+                decoration: InputDecoration(hintText: 'Kelas Mahasiswa'),
+              ),
+              Divider(height: 5.0),
+              ElevatedButton(child: Text("Upload"), onPressed: onTambah),
+            ],
+          ),
+        ),
+        new Column(
+          children: data,
+        )
+      ],
+    );
+  }
+}
